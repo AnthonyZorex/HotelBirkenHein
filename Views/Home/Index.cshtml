@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid min-vh-100 px-0 d-flex flex-column">
+    <div class="row g-0 flex-grow-1 d-flex flex-md-row flex-column h-100">
+
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 bg-dark text-white p-3 d-flex flex-md-column align-items-md-start align-items-center shadow-sm">
+            <ul class="list-unstyled w-100">
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Index", "Home")">🏨 Hotel</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Zimmer", "Home")">🛏️ Zimmer</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Betten", "Home")">🛌 Betten</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Kunden", "Home")">👥 Kunden</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Firma", "Home")">👥 Firma</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Reservierung", "Home")">📊 Reservierung</a></li>
+            </ul>
+        </nav>
+
+        <main class="col bg-body p-4 p-md-5">
+            <div class="container-fluid px-0">
+                <div class="bg-white rounded-4 border shadow-sm p-4 p-md-5">
+
+                    <div class="row g-4 flex-wrap">
+
+                        <!-- Hotel Info -->
+                        <section class="col-12 col-md-4 col-lg-3 bg-light text-dark text-center p-4 rounded-3 border shadow-sm d-flex flex-column justify-content-center">
+                            <h2 class="fw-bold mb-3">@ViewBag.FirstHotel.Name</h2>
+                            <h5 class="text-muted mb-2">@ViewBag.FirstHotel.Adresse</h5>
+                            <h5 class="text-muted">@ViewBag.FirstHotel.Telefon</h5>
+                        </section>
+
+                        <!-- Statistik -->
+                        <section class="col-12 col-md bg-light text-dark p-4 rounded-3 border shadow-sm d-flex flex-column">
+
+                            <h2 class="fw-bold text-center mb-4">@ViewBag.FirstHotel.Name</h2>
+                            <hr class="my-3" />
+
+                            <!-- Zimmer & Betten -->
+                            <div class="row text-center g-3 mb-4">
+                                <div class="col-6 col-md-4">
+                                    <div class="fw-semibold text-primary">Zimmer</div>
+                                    <div class="fs-5"><strong>@ViewBag.ZimmerCount</strong></div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="fw-semibold text-danger">Belegt</div>
+                                    <div class="fs-5"><strong>@ViewBag.RezervierungZimmer</strong></div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="fw-semibold text-success">Frei</div>
+                                    <div class="fs-5"><strong>@ViewBag.FreiZimmer</strong></div>
+                                </div>
+
+                                <div class="col-6 col-md-4">
+                                    <div class="fw-semibold text-primary">Betten</div>
+                                    <div class="fs-5"><strong>@ViewBag.BettCount</strong></div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="fw-semibold text-danger">Belegt</div>
+                                    <div class="fs-5"><strong>@ViewBag.ReservierungBett</strong></div>
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <div class="fw-semibold text-success">Frei</div>
+                                    <div class="fs-5"><strong>@ViewBag.BettFrei</strong></div>
+                                </div>
+                            </div>
+
+                            <hr class="my-3" />
+
+                            <!-- Zahlungen -->
+                            <div class="row text-center g-3 mb-4">
+                                <div class="col-6 col-md-4 fw-semibold">Gezahlte Beträge:</div>
+                                <div class="col-6 col-md-4 fs-5 text-success">
+                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("de-DE"), "{0:C}", ViewBag.Zahlen)
+                                </div>
+
+                                <div class="w-100 d-md-none"></div>
+
+                                <div class="col-6 col-md-4 fw-semibold">Offene Beträge:</div>
+                                <div class="col-6 col-md-4 fs-5 text-danger">
+                                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("de-DE"), "{0:C}", ViewBag.Muszahlen)
+                                </div>
+                            </div>
+
+                            <hr class="my-3" />
+
+                            <!-- Notizen -->
+                            <div class="row align-items-center text-center g-3">
+                                <div class="col-12 col-md-4 fw-bold fs-5">Notizen:</div>
+                                <div class="col-12 col-md-5 text-truncate" title="@ViewBag.Notieren">@ViewBag.Notieren</div>
+                                <div class="col-12 col-md-3">
+                                    <a href="@Url.Action("Hotel_Edit", "Home", new { id = @ViewBag.FirstHotel.Id })">
+                                        <button class="btn btn-success w-100 shadow-sm">Mehr</button>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+
+                    <!-- Alle Hotels Cards -->
+                    <div class="row g-4 mt-5">
+                        @for (int i = 0; i < ViewBag.allHotel.Count; i++)
+                        {
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                                <article class="d-flex flex-column bg-light text-dark text-center p-4 rounded-3 border shadow-sm w-100 h-100">
+                                    <h2 class="fw-bold mb-3">@ViewBag.allHotel[i].Name</h2>
+                                    <div class="mb-4">
+                                        @if (ViewBag.AllZimmer.Count > i)
+                                        {
+                                            <h5 class="text-success mb-1">Frei</h5>
+                                            <h6>Zimmer: @ViewBag.AllZimmer[i].ReservierteZimmer</h6>
+                                            <h6>Betten: @ViewBag.AllBett[i].ReservierteBetten</h6>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="text-danger mb-1">Belegt</h5>
+                                            <h6>Zimmer: 0</h6>
+                                            <h6>Betten: 0</h6>
+                                        }
+                                    </div>
+                                    <div class="mt-auto">
+                                        <a href="@Url.Action("Hotel_Edit", "Home", new { id = ViewBag.allHotel[i].Id })">
+                                            <button class="btn btn-success w-100 shadow-sm">Mehr</button>
+                                        </a>
+                                    </div>
+                                </article>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>

@@ -1,0 +1,468 @@
+﻿@model Reservierung
+
+@{
+    ViewData["Title"] = "Reservierung";
+}
+
+<div class="container-fluid vh-100">
+    <div class="row h-100">
+
+        <div class="col-12 bg-light p-5 rounded shadow-lg">
+            <div class="row">
+                <div class="col-12 bg-white text-dark text-center p-4 rounded border shadow-lg">
+                    <h2 >Reservierung</h2>
+                    <form asp-action="ReservierungSave" asp-controller="Edit" method="post" class="container mt-4">
+
+                        <!-- Hotel Auswahl -->
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="hotelSelect" class="form-label">Hotel</label>
+                                <select id="hotelSelect"  onchange="HotelSelect(event.target.value)" name="Name" class="form-select">
+                                    <option value="">Wählen Sie das Hotel aus</option>
+
+                                    @foreach (var hotel in ViewBag.Hotel)
+                                    {
+                                        <option value="@hotel.Name">@hotel.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#hotel">
+                                    Hotel Erstellen
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Zimmernummer Auswahl -->
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="zimmerSelect" class="form-label">Zimmernummer</label>
+                                <select id="zimmerSelect" name="Zimmernummer"  onchange="ZimmerSelect(event.target.value)" class="form-select">
+                                    <option value="">Wählen Sie das Zimmer aus</option>
+                                    @foreach (var zimmer in ViewBag.Zimmer)
+                                    {
+                                        <option value="@zimmer.Zimmernummer">@zimmer.Zimmernummer</option>  
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#zimmer">
+                                    Zimmer Erstellen
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="NameGastSelect" class="form-label">Bett</label>
+                                <input id="bettInput" class="form-control" onchange="Price()" name="AllBett" />
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#bett">
+                                    Bett Erstellen
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-3">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           value="true"
+                                           id="checkboxAktiv"
+                                           name="Rcontinue"
+                                            @(Model.Rcontinue == true ? "checked" : "") />
+                                            <label class="form-check-label"  for="checkboxAktiv">
+                                                Automatische Verlängerung
+                                            </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    
+                        <!-- Reserviert von / bis -->
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="reserviertvod" class="form-label">Reserviert von</label>
+                                @Html.EditorFor(m => m.Reserviertvod, new { htmlAttributes = new { @class = "form-control", type = "date", id = "reserviertvod", onchange = "Price()" } })
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="reserviertbis" class="form-label">Reserviert bis</label>
+                                @Html.EditorFor(m => m.Reserviertbis, new { htmlAttributes = new { @class = "form-control", type = "date", id = "reserviertbis", onchange = "Price()" } })
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="zahlen" class="form-label">Zahlen</label>
+                                    @Html.EditorFor(m => m.Zahlen, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "form-control",
+                                            type = "number",
+                                            id = "zyhlen",
+                                            onchange= "ZahlenSystem()"
+                                        }
+                                    })
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="muszahlen" class="form-label">Muss Zahlen</label>
+                                @Html.EditorFor(m => m.Muss_bezahlen, new { htmlAttributes = new { @class = "form-control", type = "number", id = "musZahlen" } })
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-12">
+                                <label for="zahlengsart" class="form-label">Zahlengsart</label>
+                                @Html.EditorFor(m => m.Zahlungsart, new { htmlAttributes = new { @class = "form-control", type = "text", id = "zahlengsart" } })
+                            </div>
+                          
+                        </div>
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="RechnungsempfSelect" class="form-label">Rechnungsempf</label>
+                                <select id="RechnungsempfSelect" onchange="Firma(event.target.value)" name="Rechnungsempf" class="form-select">
+
+                                    <option value="">Wählen Sie die Firma aus</option>
+                                    @foreach (var firma in ViewBag.Firma)
+                                    {
+                                        <option value="@firma.FirmeName">@firma.FirmeName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#firma">
+                                    Firma Erstellen
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="Kontakt" class="form-label">Kontakt </label>
+                                <input id="Kontakt" name="Kontakt" class="form-select" />
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#firmaInfo">
+                                    Mehr info
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="NameGastSelect" class="form-label">Name Gast</label>
+                                <select id="NameGastSelect" name="NameGast" onchange="Gast(event.target.value)" class="form-select">
+                                    <option value=""></option>
+                                    @foreach (var gast in ViewBag.Gast)
+                                    {
+                                     
+                                        <option value="@gast.Name">@gast.Name</option>
+                                    } 
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#kunde">
+                                    Kunde Erstellen
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-6">
+                                <label for="GastKontakt" class="form-label">Gast Kontakt </label>
+                                <input id="GastKontakt" name="GastKontakt" class="form-select" />
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#KundeInfo">
+                                    Mehr info
+                                </button>
+                               
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-4 align-items-end">
+                            <div class="col-12 col-md-12">
+                                <label for="Bemerkung" class="form-label">Bemerkung </label>
+                                <textarea id="Bemerkung" name="Bemerkung" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Absenden Button -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success w-100">Absenden</button>
+                            </div>
+                              
+                        </div>
+                        <div class="mt-5 row">
+                                    <button type="button" class="btn btn-primary" onclick="window.history.back()">Zurük</button>
+                                </div>
+                    </form>
+
+                        <div id="HotelAlert" class="alert mt-3 d-none" role="alert"></div>
+                            <div class="modal fade" id="hotel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog  modal-xl">
+                                    <form id="hotelForm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Hotel Erstelen</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          
+                                                <div class="mb-3 row">
+                                                    <label for="HotelId" class="col-form-label col-sm-2">Hotel</label>
+                                                    <div class="col-sm-10">
+                                                        <input name="Name" id="HotelId" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 row">
+                                                    <label for="Adresse" class="col-form-label col-sm-2">Adresse</label>
+                                                    <div class="col-sm-10">
+                                                        <input name="Adresse" id="Adresse" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 row">
+                                                    <label for="Kontaktperson" class="col-form-label col-sm-2">Kontaktperson</label>
+                                                    <div class="col-sm-10">
+                                                        <input name="Kontaktperson" id="Kontaktperson" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 row">
+                                                    <label for="Telefon" class="col-form-label col-sm-2">Telefon</label>
+                                                    <div class="col-sm-10">
+                                                        <input name="Telefon" id="Telefon" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 row">
+                                                    <label for="Private" class="col-form-label col-sm-2">Private</label>
+                                                    <div class="col-sm-10">
+                                                        <input name="Private" id="Private" type="text" class="form-control" />
+                                                    </div>
+                                                </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success">Senden</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                   
+
+                <div id="ZimmerAlert" class="alert mt-3 d-none" role="alert"></div>
+                <div class="modal fade" id="zimmer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog  modal-xl">
+                        <form id="ZimmerForm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Zimmer Erstelen</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                        <div class="col-auto mt-5">
+                                            <select name="XHotelId" id="xhotel" class="form-select">
+                                                @foreach (var hotel in ViewBag.Hotel)
+                                                {
+                                                    <option value="@hotel.Id">@hotel.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3 row mt-5">
+                                            <label for="HotelId" class="col-form-label col-sm-2">Zimmernummer</label>
+                                            <div class="col-sm-10">
+                                            <input name="Zimmernummer" id="HotelId" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success">Senden</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                    <div class="modal fade" id="bett" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <form id="BettForm">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Bett Erstellen</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Контент -->
+                                        <div class="mb-3">
+                                            <label for="zimmerSelectx" class="form-label">Zimmer auswählen</label>
+                                            <select name="XZimmerId" id="zimmerSelectx" class="form-select">
+
+                                                @foreach (var zimmer in ViewBag.Zimmer)
+                                                {
+                                                    <option value="@zimmer.Id">@zimmer.Zimmernummer</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="bettName" class="form-label">Bett Name</label>
+                                            <input type="text" class="form-control" id="bettName" name="BettName" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                        <button type="submit" class="btn btn-success">Senden</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="firma" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <form id="FirmaForm">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Rechnungsempf Erstellen</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                                    </div>
+                                    <div class="modal-body">
+  
+                                        <div class="mb-3">
+                                            <label for="firmaName" class="form-label">Rechnungsempf.</label>
+                                            <input type="text" class="form-control" id="FirmaName" name="FirmeName" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Name" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="Name" name="Name" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="adresse" class="form-label">Adresse</label>
+                                            <input type="text" class="form-control" id="adresse" name="Adresse" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="HRB" class="form-label">HRB</label>
+                                            <input type="text" class="form-control" id="HRB" name="HRB" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Telefon" class="form-label">Telefon</label>
+                                            <input type="text" class="form-control" id="Telefon" name="Telefon" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Bemekung" class="form-label">Bemekung</label>
+                                            <input type="text" class="form-control" id="Bemekung" name="Bemekung" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Kunden_Nr" class="form-label">Kunden Nr</label>
+                                            <input type="text" class="form-control" id="Kunden_Nr" name="Kunden_Nr" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                        <button type="submit" class="btn btn-success">Senden</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="modal fade" id="kunde" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <form id="KundeForm">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Kunde Erstellen</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            <label for="KundeName" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="KundeName" name="Name" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="KundeAdresse" class="form-label">Adresse</label>
+                                            <input type="text" class="form-control" id="KundeAdresse" name="Adresse" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="StAG" class="form-label">StAG</label>
+                                            <input type="text" class="form-control" id="StAG" name="StAG" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Geschlecht" class="form-label">Geschlecht</label>
+                                            <input type="text" class="form-control" id="Geschlecht" name="Geschlecht" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Telefon" class="form-label">Telefon</label>
+                                            <input type="text" class="form-control" id="Telefon" name="Telefon" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Bemekung" class="form-label">Prvat oder Firma</label>
+                                            <select name="prvat_or_firma" class="form-select">
+                                                <option value="Privat">Privat</option>
+                                                <option value="Firma">Firma</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Kunden_Nr" class="form-label">Kunden Nr</label>
+                                            <input type="text" class="form-control" id="Kunden_Nr" name="Kunden_Nr" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                        <button type="submit" class="btn btn-success">Senden</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/Hotel.js" ></script>
+<script>
+    
+    let allbad = @Html.Raw(Json.Serialize(ViewBag.BadJson));
+    console.log(allbad);
+
+
+</script>
+}
+
+
+

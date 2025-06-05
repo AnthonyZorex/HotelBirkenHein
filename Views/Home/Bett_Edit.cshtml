@@ -1,0 +1,137 @@
+﻿@model Motel_birkenhein.Models.Bett
+
+@{
+    ViewData["Title"] = "Bett Edit";
+
+    var hotel = ViewBag.Hotel;
+    var bett = ViewBag.BedCount;
+    var zimemr = ViewBag.Zimmer;
+    var gast = ViewBag.Gast;
+
+    // Приводим ReserviertInformations к списку и берем первый элемент, если есть
+    var reserviertList = ViewBag.ReserviertInformations as List<Motel_birkenhein.Models.Reservierung>;
+    var reserviert = reserviertList != null && reserviertList.Any() ? reserviertList[0] : null;
+}
+
+<div class="container-fluid min-vh-100">
+    <div class="row h-100 flex-nowrap">
+        <div class="container-fluid min-vh-100">
+            <div class="row flex-column flex-md-row h-100">
+                <!-- Sidebar -->
+                <nav class="bg-dark text-white text-center p-3 col-12 col-md-3 col-lg-2 shadow-lg mb-3 mb-md-0">
+                    <ul class="list-unstyled d-flex d-md-block justify-content-around mb-0">
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Index", "Home")">🏨 Hotel</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Zimmer", "Home")">🛏️ Zimmer</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Betten", "Home")">🛌 Betten</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Kunden", "Home")">👥 Kunden</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Firma", "Home")">👥 Firma</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="#">📊 Buchhaltung</a></li>
+                    </ul>
+                </nav>
+
+                <div class="col bg-light p-3 p-md-5 rounded shadow-lg">
+                    <div class="col-12 col-md-10 bg-light p-3 p-md-5 rounded shadow-lg">
+                        <div class="row g-4 flex-wrap">
+
+                            <form asp-action="Betten_Editieren" enctype="multipart/form-data" asp-controller="Home">
+
+                                @Html.HiddenFor(Model => Model.Id)
+
+                                <div class="mb-3 row">
+                                    <label for="HotelId" class="col-form-label col-sm-2">Hotel</label>
+                                    <div class="col-sm-10">
+                                        <input id="HotelId" type="text" class="form-control" value="@hotel?.Name" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="Zimmernummer" class="col-form-label col-sm-2">Zimmernummer</label>
+                                    <select id="xhotel" name="XZimmerId" class="form-select">
+
+                                        @foreach (var h in ViewBag.AllZimmer)
+                                        {
+                                            if (@h.Zimmernummer == @zimemr?.Zimmernummer)
+                                            {
+                                                <option value="@h.Id" selected>@h?.Zimmernummer</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@h.Id">@h?.Zimmernummer</option>
+                                            }
+
+                                        }
+                                    </select>
+                                 
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="bed" class="col-form-label col-sm-2">Bett</label>
+                                    <div class="col-sm-10">
+                                        <input name="BettName" id="bed" type="text" class="form-control" value="@Model.BettName" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="Gast" class="col-form-label col-sm-2">Gast</label>
+                                    <div class="col-sm-10">
+                                        <input id="Gast" type="text" class="form-control" readonly value="@gast?.Name" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-between">
+                                        <div>Reserviert</div>
+                                        <div>von</div>
+                                        <div>
+                                            @if (reserviert != null)
+                                            {
+                                                @reserviert.Reserviertvod?.ToString("dd.MM.yyyy")
+                                            }
+                                            else
+                                            {
+                                                <span>-</span>
+                                            }
+                                        </div>
+                                        <div>Bis</div>
+                                        <div>
+                                            @if (reserviert != null)
+                                            {
+                                                @reserviert.Reserviertbis?.ToString("dd.MM.yyyy")
+                                            }
+                                            else
+                                            {
+                                                <span>-</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="Zahlen" class="col-form-label col-sm-2">Zahlen</label>
+                                    <div class="col-sm-10">
+                                        <input id="Zahlen" type="text" readonly class="form-control" value="@(reserviert?.Zahlen?.ToString("0.00") ?? "-")" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="Muss_bezahlen" class="col-form-label col-sm-2">Muss Bezahlen</label>
+                                    <div class="col-sm-10">
+                                        <input id="Muss_bezahlen" type="text" readonly class="form-control" value="@(reserviert?.Muss_bezahlen?.ToString("0.00") ?? "-")" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <button type="submit" class="btn btn-success">Speichern</button>
+                                </div>
+                                <div class="mb-3 row">
+                                    <button type="button" class="btn btn-primary" onclick="window.history.back()">Zurück</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

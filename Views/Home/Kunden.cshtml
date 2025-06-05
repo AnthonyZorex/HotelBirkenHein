@@ -1,0 +1,319 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    int counter = 0;
+}
+
+<div class="container-fluid min-vh-100">
+    <div class="row h-100 flex-nowrap">
+        <div class="container-fluid min-vh-100">
+            <div class="row flex-column flex-md-row h-100">
+                <!-- Sidebar -->
+                <nav class="bg-dark text-white text-center p-3 col-12 col-md-3 col-lg-2 shadow-lg mb-3 mb-md-0">
+                    <ul class="list-unstyled d-flex d-md-block justify-content-around mb-0">
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Index", "Home")">🏨 Hotel</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Zimmer", "Home")">🛏️ Zimmer</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Betten", "Home")">🛌 Betten</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Kunden", "Home")">👥 Kunden</a></li>
+                        <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Firma", "Home")">👥 Firma</a></li>
+                       <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Reservierung", "Home")">📊 Reservierung</a></li>
+                    </ul>
+                </nav>
+
+
+                <div class="col bg-light p-3 p-md-5 rounded shadow-lg">
+                    <div class="d-flex flex-wrap align-items-center border-bottom py-3 gap-3">
+
+                        @foreach (var list in ViewBag.Hotel)
+                        {
+                            <div class="bg-white rounded px-3 py-2 fw-bold text-center shadow-sm" style="min-width: 90px;">
+                                <button onclick="filterByHotel('@list.Name')" class="btn">@list.Name</button>
+                            </div>
+                            
+                        }
+                        <div class="bg-white rounded px-3 py-2 fw-bold text-center shadow-sm" style="min-width: 90px;">
+                            <input type="text" onchange="filteByZimmer(event.target.value)" class="form-control" />
+                        </div>
+                        <div class="bg-white rounded px-3 py-2 fw-bold text-center shadow-sm" style="min-width: 90px;">
+                            <button onclick="filterByHotel('')" class="btn">
+                                <span class="material-symbols-outlined">
+                                    filter_alt_off
+                                </span>
+                            </button>
+                        </div>
+
+                         <div class="bg-white rounded px-3 py-2 fw-bold text-center shadow-sm" style="min-width: 90px;">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#kunde">
+                                Kunde Erstellen
+                            </button>
+                        </div>
+                        
+                    </div>
+
+                    <table class="table table-bordered table-hover align-middle text-center">
+                        <thead class="table-light">
+                            <tr>
+                                 <th>👤 Kunde</th>
+                                <th>📌 Status</th>
+                                <th>📅 Reservierungszeitraum</th>
+                                <th>💰 Offene Zahlung</th>
+                                <th>🔍 Details</th>
+                                <th>🗑️ Löschen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var list in ViewBag.ZymmerReservierung)
+                            {
+
+                                <tr id="hotel" data-hotel="@list.hotel" data-zimmer="@list.GastName">
+
+                                    <td class="fw-bold">@list.GastName</td>
+
+                                    <td class="fw-bold">
+
+                                      <h4>@list.Zimmernummer (
+
+                                        @if (list.Betten.Count>0)
+                                        {
+                                            foreach (var bett in list.Betten)
+                                            {
+                                                    if (counter > list.Betten.Count)
+                                                    {
+                                                        <span>@bett.BettName, </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@bett.BettName </span>      
+                                                    }
+                                                    
+                                            }
+                                            
+                                        }
+                                            )
+                                        </h4>
+                                    </td>
+
+                                    <td>
+                                        @if (list.ReservierungVon != null && list.ReservierungBis != null)
+                                        {
+                                            @($"{list.ReservierungVon:dd.MM.yyyy} - {list.ReservierungBis:dd.MM.yyyy}")
+                                        }
+                                        else
+                                        {
+                                            <span>-</span>
+                                        }
+                                    </td>
+
+                                    <td class="fw-bold">
+
+                                        <h4>
+                                            @String.Format(System.Globalization.CultureInfo.GetCultureInfo("de-DE"), "{0:C}", list.MussBezahlen)
+                                        </h4>
+                                    </td>
+
+                                    <td>
+                                        <a href="@Url.Action("Kunden_Edit", "Home", new { id = list.Id })" class="text-decoration-none fw-semibold">Mehr &gt;</a>
+                                    </td>
+                                     <td>
+                                        <a href="@Url.Action("Kunden_Delet", "Home", new { id = list.Id })" class="text-decoration-none fw-semibold">Löschen &gt;</a>
+                                    </td>
+                                </tr>
+
+                            }
+
+                            @foreach (var list in ViewBag.AllGast)
+                            {
+
+                                <tr data-zimmer="@list.Name">
+
+                                    <td class="fw-bold">@list.Name</td>
+
+                                    <td class="fw-bold">
+
+                                      
+                                    </td>
+
+                                    <td>
+                                      
+                                    </td>
+
+                                    <td class="fw-bold">
+
+                                      
+                                    </td>
+
+                                    <td>
+                                        <a href="@Url.Action("Kunden_Edit", "Home", new { id = list.Id })" class="text-decoration-none fw-semibold">Mehr &gt;</a>
+                                    </td>
+                                      <td>
+                                        <a href="@Url.Action("Kunden_Delet", "Home", new { id = list.Id })" class="text-decoration-none fw-semibold">Löschen &gt;</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                    <div class="modal fade" id="kunde" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <form id="KundeForm">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Kunde Erstellen</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            <label for="KundeName" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="KundeName" name="Name" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="KundeAdresse" class="form-label">Adresse</label>
+                                            <input type="text" class="form-control" id="KundeAdresse" name="Adresse" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="StAG" class="form-label">StAG</label>
+                                            <input type="text" class="form-control" id="StAG" name="StAG" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Geschlecht" class="form-label">Geschlecht</label>
+                                            <input type="text" class="form-control" id="Geschlecht" name="Geschlecht" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Telefon" class="form-label">Telefon</label>
+                                            <input type="text" class="form-control" id="Telefon" name="Telefon" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Bemekung" class="form-label">Prvat oder Firma</label>
+                                            <select name="prvat_or_firma" class="form-select">
+                                                <option value="Privat">Privat</option>
+                                                <option value="Firma">Firma</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="Kunden_Nr" class="form-label">Kunden Nr</label>
+                                            <input type="text" class="form-control" id="Kunden_Nr" name="Kunden_Nr" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                                        <button type="submit" class="btn btn-success">Senden</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/Hotel.js" ></script>
+<script>
+    function filteByZimmer(value) {
+        const rows = document.querySelectorAll("tr#hotel");
+
+        const mobilrows = document.querySelectorAll("div#hotel");
+
+        if (value == '') {
+            rows.forEach(row => {
+                const rowHotel = row.dataset.zimmer;
+
+
+                row.style.display = "";
+
+            });
+        }
+        else {
+            rows.forEach(row => {
+                const rowHotel = row.dataset.zimmer;
+
+                if (value === "all" || rowHotel === value) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+
+        if (value == '') {
+            mobilrows.forEach(row => {
+                const rowHotel = row.dataset.zimmer;
+                row.style.display = "";
+
+            });
+        }
+        else {
+            mobilrows.forEach(row => {
+                const rowHotel = row.dataset.zimmer;
+
+                if (value === "all" || rowHotel === value) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+    }
+    function filterByHotel(hotelName) {
+        const rows = document.querySelectorAll("tr#hotel");
+
+        const mobilrows = document.querySelectorAll("div#hotel");
+
+
+        if (hotelName == '') {
+            rows.forEach(row => {
+                const rowHotel = row.dataset.hotel;
+
+
+                row.style.display = "";
+
+            });
+        }
+        else {
+            rows.forEach(row => {
+                const rowHotel = row.dataset.hotel;
+
+                if (hotelName === "all" || rowHotel === hotelName) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+
+        if (hotelName == '') {
+            mobilrows.forEach(row => {
+                const rowHotel = row.dataset.hotel;
+                row.style.display = "";
+
+            });
+        }
+        else {
+            mobilrows.forEach(row => {
+                const rowHotel = row.dataset.hotel;
+
+                if (hotelName === "all" || rowHotel === hotelName) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+    }
+</script>
+}
+

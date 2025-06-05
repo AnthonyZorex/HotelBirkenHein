@@ -1,0 +1,142 @@
+﻿@model Motel_birkenhein.Models.Firma
+
+@{
+    ViewData["Title"] = "Firma Edit";
+    var gast = ViewBag.Gast;
+}
+
+<div class="container-fluid min-vh-100 px-0 d-flex flex-column">
+    <div class="row g-0 flex-grow-1 d-flex flex-md-row flex-column h-100">
+
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 bg-dark text-white p-3 d-flex flex-md-column align-items-md-start align-items-center shadow-sm">
+            <ul class="list-unstyled w-100">
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Index", "Home")">🏨 Hotel</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Zimmer", "Home")">🛏️ Zimmer</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Betten", "Home")">🛌 Betten</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Kunden", "Home")">👥 Kunden</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="@Url.Action("Firma", "Home")">👥 Firma</a></li>
+                <li class="mb-3"><a class="text-white text-decoration-none w-100 d-block" href="#">📊 Buchhaltung</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="col bg-body p-4 p-md-5">
+            <div class="container-fluid px-0">
+                <div class="bg-white rounded-4 border p-4 p-md-5">
+                    <form asp-action="Betten_Editieren" asp-controller="Home" enctype="multipart/form-data" novalidate>
+                        @Html.HiddenFor(model => model.Id)
+
+                        <h2 class="mb-4 text-dark fw-semibold">👤 Gästeinformation</h2>
+                        <div class="row g-4">
+                            
+                            <div class="col-md-6">
+                                <label asp-for="FirmeName" class="form-label">Firmename</label>
+                                <input asp-for="FirmeName" class="form-control" value="@gast.FirmeName" />
+                                <span asp-validation-for="FirmeName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label">Name</label>
+                                <input asp-for="Name" class="form-control" value="@gast.Name" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Adresse" class="form-label">Adresse</label>
+                                <input asp-for="Adresse" class="form-control" value="@gast.Adresse" />
+                                <span asp-validation-for="Adresse" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="HRB" class="form-label">HRB</label>
+                                <input asp-for="HRB" class="form-control" value="@gast.HRB" />
+                                <span asp-validation-for="HRB" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Telefon" class="form-label">Geschlecht</label>
+                                <input asp-for="Telefon" class="form-control" value="@gast.Telefon" />
+                                <span asp-validation-for="Telefon" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Bemekung" class="form-label">Bemekung</label>
+                                <input asp-for="Bemekung" class="form-control" value="@gast.Bemekung" />
+                                <span asp-validation-for="Bemekung" class="text-danger small"></span>
+                            </div>
+
+                          
+
+                            <div class="col-md-6">
+                                <label asp-for="Kunden_Nr" class="form-label">Kunden Nr.</label>
+                                <input asp-for="Kunden_Nr" class="form-control" value="@gast.Kunden_Nr" />
+                                <span asp-validation-for="Kunden_Nr" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <hr class="my-5" />
+
+                        <h4 class="mb-3 text-dark">🛏️ Zimmer & Reservierungen</h4>
+                        @if (ViewBag.reservierung != null)
+                        {
+                            foreach (var zimmer in ViewBag.reservierung)
+                            {
+                                foreach (var list in zimmer.Zimmer)
+                                {
+                                    <div class="border rounded-3 bg-light p-3 mb-4">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Zimmernummer</label>
+                                                <input type="text" class="form-control bg-white" value="@list.Zimmernummer" readonly />
+                                            </div>
+                                        </div>
+                                        @foreach (var bett in list.Bett)
+                                        {
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Bett</label>
+                                                    <input type="text" class="form-control bg-white" value="@bett.BettName" readonly />
+                                                </div>
+                                            </div>
+
+
+                                        }
+
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Reserviert von</label>
+                                                <input type="text" class="form-control bg-light" readonly value="@(zimmer.Reserviertvod != null ? $"{zimmer.Reserviertvod:dd.MM.yyyy}" : "-")" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Bis</label>
+                                                <input type="text" class="form-control bg-light" readonly value="@(zimmer.Reserviertbis != null ? $"{zimmer.Reserviertbis:dd.MM.yyyy}" : "-")" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Bezahlen</label>
+                                                <input type="text" class="form-control" value="@zimmer.Zahlen" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Muss Bezahlen</label>
+                                                <input type="text" class="form-control" value="@zimmer.Muss_bezahlen" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+
+                        <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+                            <button type="submit" class="btn btn-primary px-4 py-2">💾 Speichern</button>
+                            <button type="button" class="btn btn-outline-secondary px-4 py-2" onclick="window.history.back()">↩️ Zurück</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

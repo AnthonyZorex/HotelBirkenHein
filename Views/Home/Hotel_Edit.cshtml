@@ -1,0 +1,134 @@
+﻿@model Motel_birkenhein.Models.Hotel
+
+@{
+    ViewData["Title"] = "Hotel Edit";
+    var hotel = ViewBag.Hotel;
+    var zimmer = ViewBag.ZimmerCount;
+    var bett = ViewBag.BedCount;
+    var reservierungZ = ViewBag.rezervierenZimmer;
+    var reservierungB = ViewBag.reservierungBett;
+
+    var freiZimmer = zimmer - reservierungZ;
+    var freiBed = bett - reservierungB;
+}
+
+<div class="container-fluid min-vh-100">
+    <div class="row h-100 flex-nowrap">
+        <div class="container-fluid min-vh-100">
+            <div class="row flex-column flex-md-row h-100">
+                <!-- Sidebar -->
+                <nav class="bg-dark text-white text-center p-3 col-12 col-md-3 col-lg-2 shadow-lg mb-3 mb-md-0">
+                    <ul class="list-unstyled d-flex d-md-block justify-content-around mb-0">
+                        <li class="py-2 py-md-3 border-md-bottom"><a class="text-white text-decoration-none" href="@Url.Action("Index", "Home")">🏨 Hotel</a></li>
+                        <li class="py-2 py-md-3 border-md-bottom"><a class="text-white text-decoration-none" href="@Url.Action("Zimmer", "Home")">🛏️ Zimmer</a></li>
+                        <li class="py-2 py-md-3 border-md-bottom"><a class="text-white text-decoration-none" href="#">🛌 Betten</a></li>
+                        <li class="py-2 py-md-3 border-md-bottom"><a class="text-white text-decoration-none" href="#">👥 Kunden</a></li>
+                        <li class="py-2 py-md-3 border-md-bottom"><a class="text-white text-decoration-none" href="#">📊 Buchhaltung</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Content -->
+                <div class="col bg-light p-3 p-md-5 rounded shadow-lg">
+                    <div class="col-12 col-md-10 bg-light p-3 p-md-5 rounded shadow-lg">
+                        <div class="row g-4 flex-wrap">
+
+
+                            <form asp-action="Hotel_Editiren" asp-controller="Home" enctype="multipart/form-data" class="container mt-4">
+                                @Html.HiddenFor(Model => Model.Id)
+
+                                <div class="row mb-3">
+                                    <label for="HotelId" class="col-sm-2 col-form-label">Hotel</label>
+                                    <div class="col-sm-10">
+                                        <input name="Name" id="HotelId" type="text" class="form-control" value="@hotel?.Name" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Adresse" class="col-sm-2 col-form-label">Adresse</label>
+                                    <div class="col-sm-10">
+                                        <input name="Adresse" id="Adresse" type="text" class="form-control" value="@hotel?.Adresse" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Kontaktperson" class="col-sm-2 col-form-label">Kontaktperson</label>
+                                    <div class="col-sm-10">
+                                        <input name="Kontaktperson" id="Kontaktperson" type="text" class="form-control" value="@hotel?.Kontaktperson" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Telefon" class="col-sm-2 col-form-label">Telefon</label>
+                                    <div class="col-sm-10">
+                                        <input name="Telefon" id="Telefon" type="text" class="form-control" value="@hotel?.Telefon" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Private" class="col-sm-2 col-form-label">Private</label>
+                                    <div class="col-sm-10">
+                                        <input name="Private" id="Private" type="text" class="form-control" value="@hotel?.Private" />
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Zimmer" class="col-sm-2 col-form-label">Zimmer</label>
+                                    <div class="col-sm-10">
+                                        <input id="Zimmer"  type="text" class="form-control" value="@zimmer" />
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row mb-3">
+                                    
+                                        <div class="d-grid gap-2 d-md-flex justify-content-between">
+                                            <div>Belegt</div>
+                                            <div>@reservierungZ</div>
+                                            <div>Frei</div>
+                                            <div>@freiZimmer</div>
+                                            <div>Mehr</div>
+                                        </div>
+                                    
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Bett" class="col-sm-2 col-form-label">Bett</label>
+                                    <div class="col-sm-10">
+                                        <input id="Bett" type="text" class="form-control" value="@bett" />
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row mb-3">
+                                 
+                                        <div class="d-grid gap-2 d-md-flex justify-content-between">
+                                            <div>Belegt</div>
+                                            <div>@reservierungB</div>
+                                            <div>Frei</div>
+                                            <div>@freiBed</div>
+                                            <div>Mehr</div>
+                                        </div>
+                                    
+                                </div>
+
+                           
+                                <div class="row">
+                                    
+                                        <button type="submit" class="btn btn-primary">Speichern</button>
+                                    
+                                </div>
+                            </form>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+
