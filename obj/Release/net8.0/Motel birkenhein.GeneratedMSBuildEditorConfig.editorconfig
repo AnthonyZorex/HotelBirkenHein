@@ -9,87 +9,87 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Motel_birkenhein
 build_property.RootNamespace = Motel_birkenhein
-build_property.ProjectDir = C:\Users\owsd_\source\repos\Motel birkenhein\Motel birkenhein\
+build_property.ProjectDir = D:\HotelBirkenHein\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\owsd_\source\repos\Motel birkenhein\Motel birkenhein
+build_property.MSBuildProjectDirectory = D:\HotelBirkenHein
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Edit/Reservierung.cshtml]
+[D:/HotelBirkenHein/Views/Edit/Reservierung.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxSZXNlcnZpZXJ1bmcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Edit/Tarif.cshtml]
+[D:/HotelBirkenHein/Views/Edit/Tarif.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdFxUYXJpZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Betten.cshtml]
+[D:/HotelBirkenHein/Views/Home/Betten.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCZXR0ZW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Bett_Edit.cshtml]
+[D:/HotelBirkenHein/Views/Home/Bett_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCZXR0X0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Firma.cshtml]
+[D:/HotelBirkenHein/Views/Home/Firma.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGaXJtYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Firma_Edit.cshtml]
+[D:/HotelBirkenHein/Views/Home/Firma_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGaXJtYV9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Hotel_Edit.cshtml]
+[D:/HotelBirkenHein/Views/Home/Hotel_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb3RlbF9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Index.cshtml]
+[D:/HotelBirkenHein/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Kunden.cshtml]
+[D:/HotelBirkenHein/Views/Home/Kunden.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxLdW5kZW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Kunden_Edit.cshtml]
+[D:/HotelBirkenHein/Views/Home/Kunden_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxLdW5kZW5fRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Reservierung.cshtml]
+[D:/HotelBirkenHein/Views/Home/Reservierung.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXNlcnZpZXJ1bmcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Reservierung_Edit.cshtml]
+[D:/HotelBirkenHein/Views/Home/Reservierung_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXNlcnZpZXJ1bmdfRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Zimmer.cshtml]
+[D:/HotelBirkenHein/Views/Home/Zimmer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxaaW1tZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Home/Zimmer_Edit.cshtml]
+[D:/HotelBirkenHein/Views/Home/Zimmer_Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxaaW1tZXJfRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Shared/Error.cshtml]
+[D:/HotelBirkenHein/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/HotelBirkenHein/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/_ViewImports.cshtml]
+[D:/HotelBirkenHein/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/_ViewStart.cshtml]
+[D:/HotelBirkenHein/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/owsd_/source/repos/Motel birkenhein/Motel birkenhein/Views/Shared/_Layout.cshtml]
+[D:/HotelBirkenHein/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-0bmqpcsyg9

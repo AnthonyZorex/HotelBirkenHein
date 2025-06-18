@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\owsd_\\source\\repos\\Motel birkenhein\\Motel birkenhein\\Motel birkenhein.csproj": {}
+    "D:\\HotelBirkenHein\\Motel birkenhein.csproj": {}
   },
   "projects": {
-    "C:\\Users\\owsd_\\source\\repos\\Motel birkenhein\\Motel birkenhein\\Motel birkenhein.csproj": {
+    "D:\\HotelBirkenHein\\Motel birkenhein.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\owsd_\\source\\repos\\Motel birkenhein\\Motel birkenhein\\Motel birkenhein.csproj",
+        "projectUniqueName": "D:\\HotelBirkenHein\\Motel birkenhein.csproj",
         "projectName": "Motel birkenhein",
-        "projectPath": "C:\\Users\\owsd_\\source\\repos\\Motel birkenhein\\Motel birkenhein\\Motel birkenhein.csproj",
+        "projectPath": "D:\\HotelBirkenHein\\Motel birkenhein.csproj",
         "packagesPath": "C:\\Users\\owsd_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\owsd_\\source\\repos\\Motel birkenhein\\Motel birkenhein\\obj\\",
+        "outputPath": "D:\\HotelBirkenHein\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\owsd_\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Motel birkenhein")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eaa6b67ca0a830b986f9bcbbe8341d4e60e241f8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3562d935b65e0789a18781af137b7574c68386af")]
 [assembly: System.Reflection.AssemblyProductAttribute("Motel birkenhein")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Motel birkenhein")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
